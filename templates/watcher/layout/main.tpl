@@ -3,6 +3,8 @@
 <html>
 <head>
     <title>{{$title|default:'守望者舆情监控系统'}}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
     <link rel="stylesheet" href="{{$base}}watcher/static/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{$base}}watcher/static/css/main.css">
 
@@ -10,7 +12,7 @@
     <script src="{{$base}}watcher/static/js/echarts/echarts.js"></script>
 </head>
 <body>
-<div class="container">
+
     <nav class="navbar navbar-default navbar-inverse">
       <div class="container-fluid">
         <div class="navbar-header">
@@ -33,7 +35,7 @@
                 </span>
               </div>
             </li>
-            <li><a href="/about" tabindex="-1">关于</a></li>
+            <li role="about"><a href="/about" tabindex="-1">关于</a></li>
           </ul>
         </div><!-- /.navbar-collapse -->
       </div>
@@ -41,7 +43,7 @@
 
     {{block name=content}}{{/block}}
 
-</div>
+
 
 <footer class="stick-bottom">
   <div class="container">

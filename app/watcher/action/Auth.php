@@ -21,6 +21,15 @@ class Action_Auth extends Action_Base
 
     public static function run()
     {
+        $resource = array();
+        session_start();
+
+        if (isset($_GET['topic']) && !empty($_GET['topic']) && $_GET['topic'] != $_SESSION['topic']) {
+            $_SESSION['topic'] = $_GET['topic'];
+        }
+        $resource['topic'] = $_SESSION['topic'];
+
+        parent::setResource($resource);
         return true;
     }
 }

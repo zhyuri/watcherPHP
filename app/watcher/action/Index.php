@@ -23,7 +23,8 @@ class Action_Index extends Action_Base
     public function run()
     {
         $view = new Vera_View(true);
-        // $view->assign('title', '守望者舆情监控系统');
+        $hotTopic = array('厦门大学','海韵','凤凰树','毕业季','智能科学与技术');
+        $view->assign('hotTopic', $hotTopic);
         $view->display('extends:layout/main.tpl|index.tpl');
     }
 }

@@ -1,4 +1,4 @@
-<?php /* Smarty version Smarty-3.1.21-dev, created on 2015-05-09 17:02:37
+<?php /* Smarty version Smarty-3.1.21-dev, created on 2015-05-10 00:24:31
          compiled from "/Users/zhangyuri/站点/templates/watcher/country.tpl" */ ?>
 <?php /*%%SmartyHeaderCode:117285819554d7b3999e1f6-50798536%%*/if(!defined('SMARTY_DIR')) exit('no direct access allowed');
 $_valid = $_smarty_tpl->decodeProperties(array (
@@ -13,7 +13,7 @@ $_valid = $_smarty_tpl->decodeProperties(array (
     '418ca0cdb5395caaf4c3a97b14af2205ffb5641e' => 
     array (
       0 => '/Users/zhangyuri/站点/templates/watcher/layout/main.tpl',
-      1 => 1431162127,
+      1 => 1431188639,
       2 => 'file',
     ),
   ),
@@ -30,11 +30,14 @@ $_valid = $_smarty_tpl->decodeProperties(array (
   ),
   'has_nocache_code' => false,
 ),false); /*/%%SmartyHeaderCode%%*/?>
-<?php if ($_valid && !is_callable('content_554d7b399dfd33_39431444')) {function content_554d7b399dfd33_39431444($_smarty_tpl) {?><!DOCTYPE html>
+<?php if ($_valid && !is_callable('content_554d7b399dfd33_39431444')) {function content_554d7b399dfd33_39431444($_smarty_tpl) {?>
+<!DOCTYPE html>
 <html>
 <head>
     <title><?php echo (($tmp = @$_smarty_tpl->tpl_vars['title']->value)===null||$tmp==='' ? '守望者舆情监控系统' : $tmp);?>
 </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
     <link rel="stylesheet" href="<?php echo $_smarty_tpl->tpl_vars['base']->value;?>
 watcher/static/css/bootstrap.min.css">
     <link rel="stylesheet" href="<?php echo $_smarty_tpl->tpl_vars['base']->value;?>
@@ -50,7 +53,7 @@ watcher/static/js/echarts/echarts.js"><?php echo '</script'; ?>
 >
 </head>
 <body>
-<div class="container">
+
     <nav class="navbar navbar-default navbar-inverse">
       <div class="container-fluid">
         <div class="navbar-header">
@@ -73,7 +76,7 @@ watcher/static/js/echarts/echarts.js"><?php echo '</script'; ?>
                 </span>
               </div>
             </li>
-            <li><a href="/about" tabindex="-1">关于</a></li>
+            <li role="about"><a href="/about" tabindex="-1">关于</a></li>
           </ul>
         </div><!-- /.navbar-collapse -->
       </div>
@@ -82,7 +85,7 @@ watcher/static/js/echarts/echarts.js"><?php echo '</script'; ?>
     
 
 
-</div>
+
 
 <footer class="stick-bottom">
   <div class="container">
