@@ -1,0 +1,32 @@
+body {
+    background: #131313 no-repeat top center fixed;
+    font-family: "Source Code Pro", "Hiragino Sans GB", "Microsoft YaHei";
+    color:#9d9d9d;
+}
+
+a:link,
+a:visited,
+a:hover,
+a:active {
+    color: #0af;
+}
+
+.nav-item-dark,
+.nav-item-dark:hover,
+.nav-item-dark:active,
+.nav-item-dark:focus {
+    background-color: #222;
+    border: 1px solid #666666;
+    color: #9d9d9d;
+    outline: none;/*去除恶心的蓝色外框*/
+}
+
+.stick-bottom {
+  bottom: 0;
+  position: absolute;
+  width: 100%;
+}
+
+.head-title {
+    color: #0af;
+}

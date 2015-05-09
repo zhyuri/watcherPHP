@@ -34,7 +34,7 @@ class  Vera_Bootstrap
 			$GLOBALS['APP_NAME'] = $temp[1];
 		}
 		else{
-			$GLOBALS['APP_NAME'] = 'cms';
+			$GLOBALS['APP_NAME'] = 'watcher';
 		}
 
 		define("APP_DIR", SERVER_ROOT . 'app/' . $GLOBALS['APP_NAME'] . '/');

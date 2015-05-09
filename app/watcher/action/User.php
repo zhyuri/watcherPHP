@@ -4,18 +4,15 @@
 *   @copyright  Copyright (c) 2015 Yuri Zhang (http://blog.yurilab.com)
 *   All rights reserved
 *
-*   file:             Index.php
-*   description:      守望者首页
+*   file:             User.php
+*   description:      用户传播
 *
 *   @author Yuri <zhang1437@gmail.com>
 *   @license Apache v2 License
 *
 **/
 
-/**
-* 首页Action
-*/
-class Action_Index extends Action_Base
+class Action_User extends Action_Base
 {
 
     function __construct() {}
@@ -23,8 +20,8 @@ class Action_Index extends Action_Base
     public function run()
     {
         $view = new Vera_View(true);
-        // $view->assign('title', '守望者舆情监控系统');
-        $view->display('extends:layout/main.tpl|index.tpl');
+        $view->assign('title', '用户传播拓扑');
+        $view->display('extends:layout/main.tpl|user.tpl');
     }
 }
 

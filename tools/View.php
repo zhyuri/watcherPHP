@@ -23,7 +23,10 @@ class Vera_View extends Smarty
     {
         parent::__construct();
 
-        $this->setTemplateDir(SERVER_ROOT . 'templates/');
+        $this->left_delimiter = "{{";
+        $this->right_delimiter = "}}";
+
+        $this->setTemplateDir(SERVER_ROOT . 'templates/'. $GLOBALS['APP_NAME'] .'/');
         $this->setCompileDir(SERVER_ROOT .'cache/smarty/templates_c/'. $GLOBALS['APP_NAME'] .'/');
         $this->setConfigDir(SERVER_ROOT . 'templates/' . $GLOBALS['APP_NAME'] .'/conf/');//Smarty配置文件
         $this->setCacheDir(SERVER_ROOT .'cache/smarty/cache/'. $GLOBALS['APP_NAME'] .'/');
@@ -32,8 +35,8 @@ class Vera_View extends Smarty
 
         if ($debug) {//开启调试模式
             $this->caching = Smarty::CACHING_OFF;//关闭缓存
-            //$this->debugging = true;//弹窗
-            Vera_Log::addNotice('isDebug','1'); 
+            // $this->debugging = true;//弹窗
+            Vera_Log::addNotice('isDebug','1');
         }
         else {
             $this->force_compile = false;
@@ -43,36 +46,6 @@ class Vera_View extends Smarty
         $this->assign('base', '/templates/');//view文件夹根目录
 
     }
-
-    public function dailyBackground()
-    {
-        $centerColor = array(
-            '#99ffff',
-            '#99ffff',
-            '#9966ff',
-            '#66ff99',
-            '#66ff66',
-            '#99ffcc',
-            '#66cc66'
-            );
-
-        $borderColor = array(
-            '#3300ff',
-            '#336699',
-            '#333399',
-            '#3366ff',
-            '#336666',
-            '#006666',
-            '#336666'
-            );
-
-        $day = date("d");
-        $index = $day % 7 ;
-
-        $this->assign('centerColor', $centerColor[$index]);//每日背景色替换
-        $this->assign('borderColor', $borderColor[$index]);
-    }
-
 }
 
 ?>
