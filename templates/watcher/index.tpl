@@ -17,7 +17,8 @@
       </span>
     </form>
     <ul class="list-inline" style="margin-top: 10px;">
-      {{foreach from=$hotTopic item=item key=key name=name}}
+        <li>热门话题:</li>
+      {{foreach from=$hotTopic item=item}}
         <li><a class="label label-default" style="background-color: #222;color: #9d9d9d;" href="/watcher/country?topic={{$item}}">{{$item}}</a></li>
       {{/foreach}}
     </ul>
@@ -93,18 +94,11 @@ require(
                         }
                     }
                 },
-                data: [{
-                    name: '山西',
-                    value: 50
-                },{
-                    name: '福建',
-                    value: -50
-                },{
-                    name: '四川',
-                    value: 0
-                }]
+                data: []
             }]
         };
+
+        var chart = ec.init(document.getElementById('wholeCountry'));
 
         $.ajax({
             url: '/watcher/api/mood',
@@ -115,11 +109,15 @@ require(
                     return ;
                 };
                 data = data.data;
+                var ret = new Array();
+                for (key in data) {
+                    ret.push({name: key, value: data[key]});
+                };
+                option.series[0].data = ret;
+                chart.setOption(option);
             }
         })
 
-        var chart = ec.init(document.getElementById('wholeCountry'));
-        chart.setOption(option);
     });
 </script>
 {{/block}}

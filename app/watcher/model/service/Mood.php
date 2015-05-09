@@ -12,6 +12,37 @@
 *
 **/
 
+/**
+*  c
+*/
+class Service_Mood
+{
+    function __construct() {}
 
+    public static function getCountry()
+    {
+        $since = date("Y-m-d H:i:s",strtotime("last month"));
+        $posts = Data_Post::getSince($since);
+
+        $ret = array();
+        foreach ($posts as $post) {
+            $loc = Service_User::getLoc($post['owner_id']);
+            if (empty($loc)) {
+                continue;
+            }
+            if (!isset($ret[$loc['first']])) {
+                $ret[$loc['first']] = 0;
+            }
+            $ret[$loc['first']] = ($ret[$loc['first']] + $post['mood']) / 2;
+        }
+
+        return $ret;
+    }
+
+    public static function getUser($user)
+    {
+        # code...
+    }
+}
 
 ?>

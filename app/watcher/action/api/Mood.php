@@ -26,12 +26,18 @@ class Action_Api_Mood extends Action_Base
 
     private static function _country()
     {
-        # code...
+        $result = Service_Mood::getCountry();
+        $ret = array('errno'=> 0, 'errmsg' => 'OK', 'data' => $result ? $result : '');
+        echo json_encode($ret, JSON_UNESCAPED_UNICODE);
+        return true;
     }
 
     private static function _user($user)
     {
-        # code...
+        $result = Service_Mood::getUser($user);
+        $ret = array('errno'=> 0, 'errmsg' => 'OK', 'data' => $result ? $result : '');
+        echo json_encode($ret, JSON_UNESCAPED_UNICODE);
+        return true;
     }
 }
 ?>
