@@ -24,6 +24,10 @@ class Action_Auth extends Action_Base
         $resource = array();
         session_start();
 
+        if (ACTION_NAME == 'Index') {
+            $_SESSION['topic'] = '';
+        }
+
         if (isset($_GET['topic']) && !empty($_GET['topic']) && $_GET['topic'] != $_SESSION['topic']) {
             $_SESSION['topic'] = $_GET['topic'];
         }

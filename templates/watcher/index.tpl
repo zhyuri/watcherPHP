@@ -5,8 +5,7 @@
     // $("ul.navbar-right li[role='search']").html('');{{*清除导航栏中原本的搜索框*}}
 </script>
 <div class="row text-center head-title">
-    <h1>守望者舆情监控&nbsp<small>v0.1</small></h1>
-    <p>Yuri</p>
+    <h1>守望者舆情监控&nbsp<small style="color: #83f6a5;">v0.1</small></h1>
 </div>
 
 {{* 搜索框 *}}
@@ -24,18 +23,21 @@
     </ul>
 </div>
 
-<div cl>
-
-</div>
-
 {{* 全国整体情绪展示 *}}
-<div class="row text-center">
-    <h4 id="chartTitle" style="z-index: 2;position: absolute; margin: 5% 0 0 47%;display: none;">实时情绪概况</h4>
-</div>
-<di class="row" style="z-index: 1;">
+<di class="row" >
     <div class="center-block" id="wholeCountry" style="height: 500px;width: 50%;"></div>
 </div>
+<div class="row text-center">
+    <h4 id="chartTitle" style="display: none;">实时情绪概况</h4>
+</div>
 <script type="text/javascript">
+$('#wholeCountry').mouseenter(function(){
+    $('#chartTitle').stop(true).fadeIn("slow");
+}).mouseleave(function(){
+    $('#chartTitle').stop(true).fadeOut("slow");
+});
+
+
 require.config({
     paths: {
         echarts: '.{{$base}}watcher/static/js/echarts'
@@ -104,14 +106,20 @@ require(
             }]
         };
 
+        $.ajax({
+            url: '/watcher/api/mood',
+            dataType: 'json',
+            success: function(data){
+                if (data.errno != 0) {
+                    alert(data.errmsg);
+                    return ;
+                };
+                data = data.data;
+            }
+        })
+
         var chart = ec.init(document.getElementById('wholeCountry'));
         chart.setOption(option);
-
-        $('#wholeCountry').mouseenter(function(){
-            $('#chartTitle').stop(true).fadeIn("slow");
-        }).mouseleave(function(){
-            $('#chartTitle').stop(true).fadeOut("slow");
-        });
     });
 </script>
 {{/block}}
