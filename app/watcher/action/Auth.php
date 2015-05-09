@@ -1,0 +1,28 @@
+<?php
+/**
+*
+*   @copyright  Copyright (c) 2015 Yuri Zhang (http://blog.yurilab.com)
+*   All rights reserved
+*
+*   file:             Auth.php
+*   description:      权限验证层
+*
+*   @author Yuri <zhang1437@gmail.com>
+*   @license Apache v2 License
+*
+**/
+
+/**
+* 权限验证层
+*/
+class Action_Auth extends Action_Base
+{
+    function __construct() {}
+
+    public static function run()
+    {
+        return true;
+    }
+}
+
+?>
