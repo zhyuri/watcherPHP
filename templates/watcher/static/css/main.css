@@ -31,3 +31,49 @@ a:active {
 .head-title {
     color: #0af;
 }
+
+.brand-breath {
+    animation: breathLight 1s infinite alternate;
+    -moz-animation: breathLight 1s infinite alternate;
+    -webkit-animation: breathLight 1s infinite alternate;
+    -o-animation: breathLight 1s infinite alternate;
+}
+@keyframes breathLight {
+  0% { color: #9d9d9d; }
+  100% { color: #0af; }
+}
+@-moz-keyframes breathLight {
+  0% { color: #9d9d9d; }
+  100% { color: #0af; }
+}
+@-webkit-keyframes breathLight {
+  0% { color: #9d9d9d; }
+  100% { color: #0af; }
+}
+@-o-keyframes breathLight {
+  0% { color: #9d9d9d; }
+  100% { color: #0af; }
+}
+
+.brand-red {
+    animation: breathRed 4s forwards;
+    -moz-animation: breathRed 4s forwards;
+    -webkit-animation: breathRed 4s forwards;
+    -o-animation: breathRed 4s forwards;
+}
+@keyframes breathRed {
+  0% { color: #9d9d9d; }
+  100% { color: red; }
+}
+@-moz-keyframes breathRed {
+  0% { color: #9d9d9d; }
+  100% { color: red; }
+}
+@-webkit-keyframes breathRed {
+  0% { color: #9d9d9d; }
+  100% { color: red; }
+}
+@-o-keyframes breathRed {
+  0% { color: #9d9d9d; }
+  100% { color: red; }
+}

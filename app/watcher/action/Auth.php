@@ -21,29 +21,28 @@ class Action_Auth extends Action_Base
 
     public static function run()
     {
+        if (ACTION_NAME == 'About') {
+            return true;
+        }
         session_start();
+        $_SESSION['word'] = isset($_SESSION['word']) ? $_SESSION['word'] : '';
         $resource = array();
 
         if (isset($_GET['word'])) {
-            $_SESSION['topic'] = $_GET['word'];//带Get参数时以Get里的为准
+            $_SESSION['word'] = $_GET['word'];//带Get参数时以Get里的为准
         }
         if (ACTION_NAME == 'Index') {
-            $_SESSION['topic'] = '';//返回首页时清空
-        } else if ($_SESSION['topic'] == '' && explode('_', ACTION_NAME)[0] != 'Api') {
-            //当topic为空时跳转至首页
-            header("Location: /watcher");
+            $_SESSION['word'] = '';//返回首页时清空
+        } else if (explode('_', ACTION_NAME)[0] != 'Api' && $_SESSION['word'] == '') {
+            header("Location: /watcher");//当word为空时跳转至首页
             exit;
         }
 
-        $resource['topic'] = $_SESSION['topic'];
+        $resource['topic'] = $_SESSION['word'];
 
-        parent::setResource($resource);
+        parent::setResource($resource);//页面专用，api以各自参数为准
         return true;
     }
 }
-
-
-// 有$_GET['word']用这个
-// 没有的话为空，并且跳转到首页
 
 ?>

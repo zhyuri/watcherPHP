@@ -2,16 +2,15 @@
 {{block name=content}}
 <script type="text/javascript">
     $("ul.navbar-nav li[role!='about']").html('');{{*清除导航栏中原本的搜索框*}}
-    // $("ul.navbar-right li[role='search']").html('');{{*清除导航栏中原本的搜索框*}}
 </script>
 <div class="row text-center head-title">
-    <h1>守望者舆情监控&nbsp<small style="color: #83f6a5;">v0.1</small></h1>
+    <h1 style="display: inline;">守望者舆情监控</h1><small style="color: #83f6a5;">v0.1</small>
 </div>
 
 {{* 搜索框 *}}
-<div class="row center-block" style="width: 40%;">
+<div class="row center-block" style="width: 40%;margin-top: 20px;">
     <form class="input-group" action="/watcher/country/" method="get">
-      <input name="word" type="text" class="form-control nav-item-dark" placeholder="微博话题" tabindex="1">
+      <input name="word" type="text" class="form-control nav-item-dark" placeholder="关键字" tabindex="1">
       <span class="input-group-btn">
         <button class="btn btn-default nav-item-dark" tabindex="-1">搜索</button>
       </span>
@@ -28,13 +27,14 @@
 </div>
 
 {{* 全国整体情绪展示 *}}
-<div class="row" >
+<div class="row">
     <div class="center-block" id="wholeCountry" style="height: 500px;width: 50%;"></div>
 </div>
 <div class="row text-center">
     <h4 id="chartTitle" style="display: none;">实时情绪概况</h4>
 </div>
 <script type="text/javascript">
+
 $('#wholeCountry').mouseenter(function(){
     $('#chartTitle').stop(true).fadeIn("slow");
 }).mouseleave(function(){
@@ -98,7 +98,7 @@ require(
                 y: 'bottom',
                 padding: [15, 0, 0, 0],
                 itemWidth: 30,
-                text: ['积极', '消极'], // 文本，默认为数值文本
+                text: ['正面', '负面'], // 文本，默认为数值文本
                 calculable: true,
                 color: ['green', '#9d9d9d', 'red'],
                 textStyle: {
