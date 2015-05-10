@@ -10,22 +10,25 @@
 
 {{* 搜索框 *}}
 <div class="row center-block" style="width: 40%;">
-    <form class="input-group" action="/watcher/country" method="get">
-      <input name="topic" type="text" class="form-control nav-item-dark" placeholder="微博话题" tabindex="1">
+    <form class="input-group" action="/watcher/country/" method="get">
+      <input name="word" type="text" class="form-control nav-item-dark" placeholder="微博话题" tabindex="1">
       <span class="input-group-btn">
         <button class="btn btn-default nav-item-dark" tabindex="-1">搜索</button>
       </span>
     </form>
-    <ul class="list-inline" style="margin-top: 10px;">
+    <ul class="list-inline" style="margin-top: 10px; max-height: 20px; width: 550px;">
         <li>热门话题:</li>
       {{foreach from=$hotTopic item=item}}
-        <li><a class="label label-default" style="background-color: #222;color: #9d9d9d;" href="/watcher/country?topic={{$item}}">{{$item}}</a></li>
+        <li><a class="label label-default" style="background-color: #222;color: #9d9d9d;" href="/watcher/country/?word={{$item}}">{{$item}}</a></li>
+        {{if $item@iteration >= 5}}{{* 为了样式最多显示五条热门话题 *}}
+            {{break}}
+        {{/if}}
       {{/foreach}}
     </ul>
 </div>
 
 {{* 全国整体情绪展示 *}}
-<di class="row" >
+<div class="row" >
     <div class="center-block" id="wholeCountry" style="height: 500px;width: 50%;"></div>
 </div>
 <div class="row text-center">
@@ -64,31 +67,67 @@ require(
                     color: '#9d9d9d'
                 }
             },
+            tooltip : {
+                trigger: 'axis',
+                //show: true,   //default true
+                showDelay: 0,
+                hideDelay: 50,
+                transitionDuration: 0,
+                backgroundColor : 'rgba(255,0,255,0.7)',
+                borderColor : '#f50',
+                borderRadius : 8,
+                borderWidth: 2,
+                padding: 10,    // [5, 10, 15, 20]
+                position : function(p) {
+                    return [p[0] + 10, p[1] - 10];
+                },
+                textStyle : {
+                    color: 'yellow',
+                    decoration: 'none',
+                    fontFamily: 'Microsoft YaHei',
+                    fontSize: 15,
+                    fontWeight: 'lighter'
+                }
+            },
             dataRange: {
-                show: false,
+                show: true,
                 min: -100,
                 max: 100,
-                x: 1000,
-                y: 'center',
-                text: ['高', '低'], // 文本，默认为数值文本
+                orient: 'horizontal',
+                x: 'center',
+                y: 'bottom',
+                padding: [15, 0, 0, 0],
+                itemWidth: 30,
+                text: ['积极', '消极'], // 文本，默认为数值文本
                 calculable: true,
-                color: ['green', '#9d9d9d', 'red']
+                color: ['green', '#9d9d9d', 'red'],
+                textStyle: {
+                    color: '#9d9d9d'
+                }
             },
             series: [{
-                name: '测试数据',
+                name: '情绪指数',
                 type: 'map',
                 mapType: 'china',
-                hoverable: false,
+                hoverable: true,
                 dataRangeHoverLink: false,
                 mapValueCalculation: 'average',
                 roam: false, //首页概况图禁止缩放
                 itemStyle: {
                     normal: {
+                        borderWidth: 2,
+                        borderColor:'#9d9d9d',
                         label: {
-                            show: true
+                            show: true,
+                            textStyle: {
+                                color: '#131313'
+                            }
                         }
                     },
                     emphasis: {
+                        borderWidth: 2,
+                        borderColor:'#0af',
+                        color: null,
                         label: {
                             show: true
                         }

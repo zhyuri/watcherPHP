@@ -12,8 +12,8 @@
     <script src="{{$base}}watcher/static/js/echarts/echarts.js"></script>
 </head>
 <body>
-
-    <nav class="navbar navbar-default navbar-inverse">
+<div class="container">
+    <nav class="navbar navbar-default navbar-fixed-top navbar-inverse">
       <div class="container-fluid">
         <div class="navbar-header">
           <a class="navbar-brand" href="/" tabindex="-1">守望者</a>
@@ -21,21 +21,21 @@
 
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li><a href="/watcher/country" tabindex="-1">情绪趋势</a></li>
-            <li><a href="/watcher/user" tabindex="-1">传播用户</a></li>
-            <li><a href="/watcher/map" tabindex="-1">传播地图</a></li>
+            <li><a href="/watcher/country/" tabindex="-1">情绪趋势</a></li>
+            <li><a href="/watcher/user/" tabindex="-1">传播用户</a></li>
+            <li><a href="/watcher/map/" tabindex="-1">传播地图</a></li>
           </ul>
 
           <ul class="nav navbar-nav navbar-right">
             <li class="navbar-form" role="search">
-              <div class="input-group">
-                <input id="searchInput" type="text" class="form-control nav-item-dark" placeholder="Search" tabindex="1">
+              <form class="input-group" action="./" method="get">
+                <input name="word" type="text" class="form-control nav-item-dark" placeholder="微博话题" tabindex="1">
                 <span class="input-group-btn">
-                  <button id="searchButton" class="btn btn-default nav-item-dark" tabindex="-1">搜索</button>
+                  <button class="btn btn-default nav-item-dark" tabindex="-1">搜索</button>
                 </span>
-              </div>
+              </form>
             </li>
-            <li role="about"><a href="/about" tabindex="-1">关于</a></li>
+            <li role="about"><a href="/watcher/about" tabindex="-1">关于</a></li>
           </ul>
         </div><!-- /.navbar-collapse -->
       </div>
@@ -44,6 +44,7 @@
     {{block name=content}}{{/block}}
 
 
+</div>
 
 <footer class="stick-bottom">
   <div class="container">

@@ -19,6 +19,8 @@ class Action_Country extends Action_Base
 
     public function run()
     {
+        $resource = parent::getResource();
+        var_dump($resource['topic']);
         $view = new Vera_View(true);
         $view->assign('title', '全国情绪趋势');
         $view->display('extends:layout/main.tpl|country.tpl');
