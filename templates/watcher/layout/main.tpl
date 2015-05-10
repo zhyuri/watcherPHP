@@ -42,7 +42,7 @@
     </nav>
 
     {{if $smarty.const.ACTION_NAME != 'Index' && $smarty.const.ACTION_NAME != 'About'}}
-      <h1 style="display: inline;">#{{$smarty.session.word}}#</h1>
+      <h3 style="display: inline;">#{{$smarty.session.word}}#</h3>
     {{/if}}
 
     {{block name=content}}{{/block}}

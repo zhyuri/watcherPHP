@@ -33,33 +33,33 @@ a:active {
 }
 
 .brand-breath {
-    animation: breathLight 1s infinite alternate;
-    -moz-animation: breathLight 1s infinite alternate;
-    -webkit-animation: breathLight 1s infinite alternate;
-    -o-animation: breathLight 1s infinite alternate;
+    animation: breathLight 2s infinite alternate;
+    -moz-animation: breathLight 2s infinite alternate;
+    -webkit-animation: breathLight 2s infinite alternate;
+    -o-animation: breathLight 2s infinite alternate;
 }
 @keyframes breathLight {
-  0% { color: #9d9d9d; }
+  50% { color: #9d9d9d; }
   100% { color: #0af; }
 }
 @-moz-keyframes breathLight {
-  0% { color: #9d9d9d; }
+  50% { color: #9d9d9d; }
   100% { color: #0af; }
 }
 @-webkit-keyframes breathLight {
-  0% { color: #9d9d9d; }
+  50% { color: #9d9d9d; }
   100% { color: #0af; }
 }
 @-o-keyframes breathLight {
-  0% { color: #9d9d9d; }
+  50% { color: #9d9d9d; }
   100% { color: #0af; }
 }
 
 .brand-red {
-    animation: breathRed 4s forwards;
-    -moz-animation: breathRed 4s forwards;
-    -webkit-animation: breathRed 4s forwards;
-    -o-animation: breathRed 4s forwards;
+    animation: breathRed 5s forwards;
+    -moz-animation: breathRed 5s forwards;
+    -webkit-animation: breathRed 5s forwards;
+    -o-animation: breathRed 5s forwards;
 }
 @keyframes breathRed {
   0% { color: #9d9d9d; }

@@ -25,6 +25,18 @@ class Data_Post
         return $db->select('post', '*', array('owner_id' => $user));
     }
 
+    public static function getByTopic($topic)
+    {
+        $db = Vera_Database::getInstance();
+        return $db->select('post', '*', array('topic_id' => $topic));
+    }
+
+    public static function getByTopicSince($topic, $time)
+    {
+        $db = Vera_Database::getInstance();
+        return $db->select('post', '*', "topic_id = {$topic} and time >= '{$time}'", NULL, 'order by time');
+    }
+
     public static function getSince($time)
     {
         $db = Vera_Database::getInstance();

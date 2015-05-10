@@ -44,7 +44,7 @@ $('#wholeCountry').mouseenter(function(){
 
 require.config({
     paths: {
-        echarts: '.{{$base}}watcher/static/js/echarts'
+        echarts: '{{$base}}watcher/static/js/echarts'
     }
 });
 
@@ -56,20 +56,11 @@ require(
     function(ec) {
         var option = {
             title: {
-                show: false,
-                text: '实时情绪概况',
-                subtext: '',
-                x: 'center',
-                y: '50',
-                textStyle: {
-                    fontSize: 25,
-                    fontWeight: 'bolder',
-                    color: '#9d9d9d'
-                }
+                show: false
             },
             tooltip : {
                 trigger: 'axis',
-                //show: true,   //default true
+                show: true,
                 showDelay: 0,
                 hideDelay: 50,
                 transitionDuration: 0,
@@ -77,7 +68,7 @@ require(
                 borderColor : '#f50',
                 borderRadius : 8,
                 borderWidth: 2,
-                padding: 10,    // [5, 10, 15, 20]
+                padding: 10,
                 position : function(p) {
                     return [p[0] + 10, p[1] - 10];
                 },

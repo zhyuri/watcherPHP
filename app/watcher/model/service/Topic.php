@@ -24,5 +24,24 @@ class Service_Topic
         # code...
     }
 
+    public static function getPostsOfTopic($topic, $since = '')
+    {
+        if ($since == '') {
+            $since = date("Y-m-d H:i:s",strtotime("last month"));
+        }
+        $info = Data_Topic::get($topic);
+        if (empty($info)) {
+            return array();
+        }
+        $posts = Data_Post::getByTopicSince($info['id'], $since);
+        foreach ($posts as &$post) {
+            $loc = Service_User::getLoc($post['owner_id']);
+            if (isset($loc['first'])) {
+                $post['location'] = $loc['first'];
+            }
+        }
+        return $posts;
+    }
+
 }
 ?>

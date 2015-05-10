@@ -30,18 +30,12 @@ class Service_Mood
             if (empty($loc)) {
                 continue;
             }
-            if (!isset($ret[$loc['first']])) {
-                $ret[$loc['first']] = 0;
+            if (!isset($ret[$loc[$level]])) {
+                $ret[$loc[$level]] = 0;
             }
-            $ret[$loc['first']] = ($ret[$loc['first']] + $post['mood']) / 2;
+            $ret[$loc[$level]] = ($ret[$loc[$level]] + $post['mood']) / 2;
         }
-
         return $ret;
-    }
-
-    public static function getUser($user)
-    {
-        # code...
     }
 }
 
