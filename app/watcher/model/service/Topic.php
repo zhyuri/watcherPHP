@@ -21,10 +21,24 @@ class Service_Topic
 
     public static function getHotTopic()
     {
-        # code...
+        return array();
     }
 
-    public static function getPostsOfTopic($topic, $since = '')
+    public static function getUsersWithRepost($topic)
+    {
+        $info = Data_Topic::get($topic);
+        if (empty($info)) {
+            return array();
+        }
+        $users = Data_Post::getUserByTopic($info['id']);
+        foreach ($users as &$user) {
+            $user = Data_User::getInfo($user['owner_id']);
+            $user['repost'] = Data_Post::getCountByTopicSource($info['id'], $user['id']);
+        }
+        return $users;
+    }
+
+    public static function getPosts($topic, $since = '')
     {
         if ($since == '') {
             $since = date("Y-m-d H:i:s",strtotime("last month"));
@@ -47,7 +61,7 @@ class Service_Topic
     {
         $info = Data_Topic::get($topic);
         if (empty($info)) {
-            return array();
+            return 0;
         }
         return Data_Post::getCountByTopic($info['id']);
     }

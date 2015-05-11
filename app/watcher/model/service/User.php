@@ -31,6 +31,9 @@ class Service_User
     public static function getNumOfTopic($topic)
     {
         $info = Data_Topic::get($topic);
+        if (empty($info)) {
+            return 0;
+        }
         return Data_Post::getUserCountByTopic($info['id']);
     }
 }

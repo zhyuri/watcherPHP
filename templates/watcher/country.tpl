@@ -106,6 +106,9 @@ require(
                         color: '#9d9d9d'
                     }
                 },
+                checkpointStyle: {
+                    color: 'red'
+                },
                 symbol: 'emptyCircle',
                 symbolSize: 6,
                 currentIndex: 0,
@@ -115,7 +118,7 @@ require(
             options: []
         };
 
-        var data = {{$data}};
+        var data = {{$data|@json_encode}};
         for (i in data) {
             option.options.push($.extend({}, _optionTpl, {series: [data[i]]}));
         }

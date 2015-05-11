@@ -101,6 +101,7 @@ require(
                 name: '情绪指数',
                 type: 'map',
                 mapType: 'china',
+                clickable: false,
                 hoverable: true,
                 dataRangeHoverLink: false,
                 mapValueCalculation: 'average',

@@ -75,6 +75,7 @@
   $('a.navbar-brand').addClass('brand-breath');
 {{else}}
   $('a.navbar-brand').addClass('brand-red');
+  $('footer a').addClass('brand-red');
   $('#modelList a[href="/watcher/'+ document.location.pathname.split('/')[2] +'/"]').css('color', '#fff');
 {{/if}}
 </script>

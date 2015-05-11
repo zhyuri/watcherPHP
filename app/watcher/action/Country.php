@@ -14,6 +14,13 @@
 
 class Action_Country extends Action_Base
 {
+    private static $_dataTpl = array(
+        'name' => '',
+        'type' => 'map',
+        'roam' => true,
+        'mapValueCalculation' => 'average',
+        'data' => array()
+    );
 
     function __construct() {}
 
@@ -32,21 +39,14 @@ class Action_Country extends Action_Base
         $view->assign('postNum', $postNum);//转发数
         $view->assign('userNum', $userNum);//参与用户
         $view->assign('labels', implode("','", $list['labels']));//时间轴标签
-        $view->assign('data', json_encode($list['data'], JSON_UNESCAPED_UNICODE));//数据
+        $view->assign('data', $list['data']);//数据
         $view->display('extends:layout/main.tpl|country.tpl');
     }
 
     private function _getDataAndLabel($word)
     {
-        $dataTpl = array(
-            'name' => '',
-            'type' => 'map',
-            'roam' => true,
-            'mapValueCalculation' => 'average',
-            'data' => array()
-        );
 
-        $posts = Service_Topic::getPostsOfTopic($word);
+        $posts = Service_Topic::getPosts($word);
         if (empty($posts)) {
             return array('result' => false, 'data' => array(), 'labels' => array());
         }
@@ -61,14 +61,14 @@ class Action_Country extends Action_Base
                 $day = $postDay;
                 $label = date('Y-m-d' ,strtotime($post['time']));
                 array_push($labels, $label);
-                $dataTpl['data'] = $data;
-                array_push($dataList, $dataTpl);
+                self::$_dataTpl['data'] = $data;
+                array_push($dataList, self::$_dataTpl);
                 $data = array();
             }
             array_push($data, array('name' => $post['location'], 'value' => $post['mood']));
         }
-        $dataTpl['data'] = $data;
-        array_push($dataList, $dataTpl);
+        self::$_dataTpl['data'] = $data;
+        array_push($dataList, self::$_dataTpl);
 
         $i = 0;
         foreach ($dataList as &$each) {

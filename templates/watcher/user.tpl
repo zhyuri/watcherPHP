@@ -18,234 +18,132 @@ require(
     ],
     function(ec) {
         var option = {
+            backgroundColor : '#131313',
             title: {
-                text: '人物关系：乔布斯',
-                subtext: '数据来自人立方',
+                show: true,
+                text: '用户传播拓扑',
+                subtext: '#{{$smarty.session.word}}#',
                 x: 'right',
-                y: 'bottom'
+                y: 'top',
+                textStyle: {
+                    fontSize: 25,
+                    fontWeight: 'bolder',
+                    color: '#9d9d9d'
+                }
             },
             tooltip: {
                 trigger: 'item',
-                formatter: '{a} : {b}'
+                transitionDuration: 0,
+                formatter: function(param){
+                    var data = param.data;
+                    if ( data.source == null || data.target == null ) {
+                        return '转发量:'+data.value;
+                    }
+                    return '';
+                }
             },
             toolbox: {
                 show: true,
+                orient: 'vertical',
+                x: 'right',
+                y: 'center',
+                itemSize: 20,
+                color: ['#0af'],
                 feature: {
-                    restore: {
-                        show: true
+                    restore : {
+                        show : true,
+                        title : '复位'
                     },
-                    magicType: {
-                        show: true,
-                        type: ['force', 'chord']
-                    },
-                    saveAsImage: {
-                        show: true
+                    saveAsImage : {
+                        show : true,
+                        title : '截图保存',
+                        name : '用户传播拓扑图#{{$smarty.session.word}}#',
+                        type : 'png',
+                        lang : ['点击下载']
                     }
                 }
             },
             legend: {
-                x: 'left',
-                data: ['家人', '朋友']
+                x: 'right',
+                y: 80,
+                orient: 'vertical',
+                data: ['普通用户', '个人认证', '机构认证'],
+                textStyle: {
+                    color: '#9d9d9d'
+                }
             },
             series: [{
                 type: 'force',
-                name: "人物关系",
-                ribbonType: false,
-                categories: [{
-                    name: '人物'
-                }, {
-                    name: '家人',
-                    symbol: 'diamond'
-                }, {
-                    name: '朋友'
-                }],
+                name: "#{{$smarty.session.word}}#",
                 itemStyle: {
                     normal: {
                         label: {
                             show: true,
                             textStyle: {
-                                color: '#333'
+                                color: 'white'
                             }
                         },
                         nodeStyle: {
-                            brushType: 'both',
+                            color: '#333',
                             borderColor: 'rgba(255,215,0,0.4)',
                             borderWidth: 1
-                        }
+                        },
+                        linkStyle: {}
                     },
                     emphasis: {
                         label: {
                             show: false
-                                // textStyle: null      // 默认使用全局文本样式，详见TEXTSTYLE
                         },
-                        nodeStyle: {
-                            //r: 30
-                        },
+                        nodeStyle: {},
                         linkStyle: {}
                     }
                 },
-                minRadius: 15,
-                maxRadius: 25,
-                gravity: 1.1,
-                scaling: 1.2,
-                draggable: false,
+                minRadius: 10,//node分布最小半径
+                maxRadius: 11,
+                gravity: 1.5,
+                scaling: 1.5,
+                draggable: true,
                 linkSymbol: 'arrow',
-                steps: 10,
-                coolDown: 0.9,
-                //preventOverlap: true,
-                nodes: [{
-                    category: 0,
-                    name: '乔布斯',
-                    value: 10,
-                    symbol: 'image://http://www.damndigital.com/wp-content/uploads/2010/12/steve-jobs.jpg',
-                    symbolSize: [60, 35],
-                    draggable: true,
+                large: false,
+                useWorker: true,
+                steps: 50,
+                roam: false,
+                categories: [{
+                    name: '普通用户',
+                    symbol: 'circle',
+                    symbolSize: 10,
                     itemStyle: {
-                        normal: {
-                            label: {
-                                position: 'right',
-                                textStyle: {
-                                    color: 'black'
-                                }
-                            }
+                        normal : {
+                            color: 'white',
+                            borderWidth: 2,
+                            borderColor: '#9d9d9d'
                         }
                     }
-                }, {
-                    category: 1,
-                    name: '丽萨-乔布斯',
-                    value: 2
-                }, {
-                    category: 1,
-                    name: '保罗-乔布斯',
-                    value: 3
-                }, {
-                    category: 1,
-                    name: '克拉拉-乔布斯',
-                    value: 3
-                }, {
-                    category: 1,
-                    name: '劳伦-鲍威尔',
-                    value: 7
-                }, {
-                    category: 2,
-                    name: '史蒂夫-沃兹尼艾克',
-                    value: 5
-                }, {
-                    category: 2,
-                    name: '奥巴马',
-                    value: 8
-                }, {
-                    category: 2,
-                    name: '比尔-盖茨',
-                    value: 9
-                }, {
-                    category: 2,
-                    name: '乔纳森-艾夫',
-                    value: 4
-                }, {
-                    category: 2,
-                    name: '蒂姆-库克',
-                    value: 4
-                }, {
-                    category: 2,
-                    name: '龙-韦恩',
-                    value: 1
-                }, ],
-                links: [{
-                    source: '丽萨-乔布斯',
-                    target: '乔布斯',
-                    weight: 1,
-                    name: '女儿',
+                },{
+                    name: '个人认证',
+                    symbol: 'circle',
+                    symbolSize: 30,
                     itemStyle: {
-                        normal: {
-                            width: 1.5,
-                            color: 'red'
+                        normal : {
+                            color: 'rgb(245,175,39)',
+                            borderWidth: 2,
+                            borderColor: '#9d9d9d'
                         }
                     }
-                }, {
-                    source: '乔布斯',
-                    target: '丽萨-乔布斯',
-                    weight: 1,
-                    name: '父亲',
+                },{
+                    name: '机构认证',
+                    symbol: 'circle',
+                    symbolSize: 40,
                     itemStyle: {
-                        normal: {
-                            color: 'red'
+                        normal : {
+                            color: 'rgb(63,160,244)',
+                            borderWidth: 2,
+                            borderColor: '#9d9d9d'
                         }
                     }
-                }, {
-                    source: '保罗-乔布斯',
-                    target: '乔布斯',
-                    weight: 2,
-                    name: '父亲'
-                }, {
-                    source: '克拉拉-乔布斯',
-                    target: '乔布斯',
-                    weight: 1,
-                    name: '母亲'
-                }, {
-                    source: '劳伦-鲍威尔',
-                    target: '乔布斯',
-                    weight: 2
-                }, {
-                    source: '史蒂夫-沃兹尼艾克',
-                    target: '乔布斯',
-                    weight: 3,
-                    name: '合伙人'
-                }, {
-                    source: '奥巴马',
-                    target: '乔布斯',
-                    weight: 1
-                }, {
-                    source: '比尔-盖茨',
-                    target: '乔布斯',
-                    weight: 6,
-                    name: '竞争对手'
-                }, {
-                    source: '乔纳森-艾夫',
-                    target: '乔布斯',
-                    weight: 1,
-                    name: '爱将'
-                }, {
-                    source: '蒂姆-库克',
-                    target: '乔布斯',
-                    weight: 1
-                }, {
-                    source: '龙-韦恩',
-                    target: '乔布斯',
-                    weight: 1
-                }, {
-                    source: '克拉拉-乔布斯',
-                    target: '保罗-乔布斯',
-                    weight: 1
-                }, {
-                    source: '奥巴马',
-                    target: '保罗-乔布斯',
-                    weight: 1
-                }, {
-                    source: '奥巴马',
-                    target: '克拉拉-乔布斯',
-                    weight: 1
-                }, {
-                    source: '奥巴马',
-                    target: '劳伦-鲍威尔',
-                    weight: 1
-                }, {
-                    source: '奥巴马',
-                    target: '史蒂夫-沃兹尼艾克',
-                    weight: 1
-                }, {
-                    source: '比尔-盖茨',
-                    target: '奥巴马',
-                    weight: 6
-                }, {
-                    source: '比尔-盖茨',
-                    target: '克拉拉-乔布斯',
-                    weight: 1
-                }, {
-                    source: '蒂姆-库克',
-                    target: '奥巴马',
-                    weight: 1
-                }]
+                }],
+                nodes: {{$nodes|default:array()|@json_encode}},
+                links: {{$links|default:array()|@json_encode}}
             }]
         };
         var chart = ec.init(document.getElementById('userForce'));
@@ -253,25 +151,24 @@ require(
 
         chart.on(ecConfig.EVENT.CLICK, function(param){
             var data = param.data;
-            var links = option.series[0].links;
-            var nodes = option.series[0].nodes;
-            if (
-                data.source != null && data.target != null
-            ) { //点击的是边
-                var sourceNode = nodes.filter(function(n) {
-                    return n.name == data.source
-                })[0];
-                var targetNode = nodes.filter(function(n) {
-                    return n.name == data.target
-                })[0];
-                console.log("选中了边 " + sourceNode.name + ' -> ' + targetNode.name + ' (' + data.weight + ')');
-            } else { // 点击的是点
+            if ( data.source == null || data.target == null ) { // 点击的是点
                 console.log("选中了" + data.name + '(' + data.value + ')');
+                var series = chart.getSeries();
+                for(i in series[0].nodes){
+                    if (series[0].nodes[i].name == data.name) {
+                        series[0].nodes[i].ignore = true;
+                    };
+                }
+                chart.setSeries(series, true);
             }
-        })
+        });
 
-        chart.on(ecConfig.EVENT.FORCE_LAYOUT_END, function() {
-            console.log(chart.chart.force.getPosition());
+        chart.on(ecConfig.EVENT.RESTORE, function(param){
+            var series = chart.getSeries();
+            for(i in series[0].nodes){
+                    series[0].nodes[i].ignore = false;
+            }
+            chart.setSeries(series, true);
         });
 
         chart.setOption(option);

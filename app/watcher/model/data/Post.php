@@ -49,11 +49,27 @@ class Data_Post
         return $db->selectCount('post', array('topic_id' => $topic));
     }
 
-    public static function getUserCountByTopic($topic)
+    public static function getCountByTopicSource($topic, $source)
     {
         $db = Vera_Database::getInstance();
-        $result = $db->select('post', 'owner_id', array('topic_id' => $topic), 'DISTINCT');
-        return count($result);
+        return $db->selectCount('post', array('topic_id' => $topic, 'source' => $source));
+    }
+
+    public static function getUserByTopic($topic)
+    {
+        $db = Vera_Database::getInstance();
+        return $db->select('post', 'owner_id', array('topic_id' => $topic), 'DISTINCT');
+    }
+
+    public static function getUserCountByTopic($topic)
+    {
+        return count(self::getUserByTopic($topic));
+    }
+
+    public static function findLinkBetween($from, $to)
+    {
+        $db = Vera_Database::getInstance();
+        return $db->select('post', '*', array('owner_id' => $to, 'source' => $from));
     }
 }
 ?>

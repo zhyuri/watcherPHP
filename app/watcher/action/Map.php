@@ -19,8 +19,15 @@ class Action_Map extends Action_Base
 
     public function run()
     {
+        $resource = parent::getResource();
+        $word = $resource['topic'];
+
+        $postNum = Service_Topic::getNumOfPost($word);
+
         $view = new Vera_View(true);
         $view->assign('title', '全国传播地图');
+        $view->assign('result', true);//是否获取到了结果
+        $view->assign('postNum', $postNum);//转发数
         $view->display('extends:layout/main.tpl|map.tpl');
     }
 }
