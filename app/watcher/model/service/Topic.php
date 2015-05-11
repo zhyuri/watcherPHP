@@ -43,5 +43,14 @@ class Service_Topic
         return $posts;
     }
 
+    public static function getNumOfPost($topic)
+    {
+        $info = Data_Topic::get($topic);
+        if (empty($info)) {
+            return array();
+        }
+        return Data_Post::getCountByTopic($info['id']);
+    }
+
 }
 ?>

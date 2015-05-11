@@ -19,6 +19,12 @@ class Data_Post
 {
     function __construct() {}
 
+    public static function getSince($time)
+    {
+        $db = Vera_Database::getInstance();
+        return $db->select('post', '*', "time >= '{$time}'");
+    }
+
     public static function getByUser($user)
     {
         $db = Vera_Database::getInstance();
@@ -37,10 +43,17 @@ class Data_Post
         return $db->select('post', '*', "topic_id = {$topic} and time >= '{$time}'", NULL, 'order by time');
     }
 
-    public static function getSince($time)
+    public static function getCountByTopic($topic)
     {
         $db = Vera_Database::getInstance();
-        return $db->select('post', '*', "time >= '{$time}'");
+        return $db->selectCount('post', array('topic_id' => $topic));
+    }
+
+    public static function getUserCountByTopic($topic)
+    {
+        $db = Vera_Database::getInstance();
+        $result = $db->select('post', 'owner_id', array('topic_id' => $topic), 'DISTINCT');
+        return count($result);
     }
 }
 ?>

@@ -1,8 +1,5 @@
 {{* 全国情感趋势图 *}}
 {{block name=content}}
-
-<span class="label label-default">转发数: 2000</span>
-<span class="label label-default">参与用户: 2000</span>
 <div class="row">
     <div class="center-block" id="moodTimeline" style="height: 650px;"></div>
 </div>
@@ -21,16 +18,38 @@ require(
     ],
     function(ec) {
         var _optionTpl = {
+            backgroundColor : '#131313',
             title: {
                 show: true,
-                text: '全国情绪发展图',
+                text: '全国舆情发展状况',
                 subtext: '#{{$smarty.session.word}}#',
-                x: 'center',
+                x: 'right',
                 y: 'top',
                 textStyle: {
                     fontSize: 25,
                     fontWeight: 'bolder',
                     color: '#9d9d9d'
+                }
+            },
+            toolbox: {
+                show: true,
+                orient: 'vertical',
+                x: 'right',
+                y: 'center',
+                itemSize: 20,
+                color: ['#0af'],
+                feature: {
+                    restore : {
+                        show : true,
+                        title : '复位'
+                    },
+                    saveAsImage : {
+                        show : true,
+                        title : '截图保存',
+                        name : '全国舆情发展状况#{{$smarty.session.word}}#',
+                        type : 'png',
+                        lang : ['点击下载']
+                    }
                 }
             },
             tooltip: {
@@ -75,9 +94,21 @@ require(
         }
         var option = {
             timeline: {
+                notMerge: true,
                 data: ['{{$labels}}'],
-                label: {
+                lineStyle: {
+                    color: '#666',
+                    width: 2,
+                    type: 'dashed'
                 },
+                label: {
+                    textStyle: {
+                        color: '#9d9d9d'
+                    }
+                },
+                symbol: 'emptyCircle',
+                symbolSize: 6,
+                currentIndex: 0,
                 autoPlay: true,
                 playInterval: 1000
             },
@@ -94,11 +125,4 @@ require(
     }
 )
 </script>
-
-
-
-
-
-
-
 {{/block}}

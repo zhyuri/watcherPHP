@@ -13,40 +13,48 @@
 </head>
 <body>
 <div class="container">
-    <nav class="navbar navbar-default navbar-fixed-top navbar-inverse">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <a class="navbar-brand" href="/" tabindex="-1">守望者</a>
-        </div>
-
-        <div class="collapse navbar-collapse">
-          <ul id="modelList" class="nav navbar-nav">
-            <li><a href="/watcher/country/" tabindex="-1">情绪趋势</a></li>
-            <li><a href="/watcher/user/" tabindex="-1">传播用户</a></li>
-            <li><a href="/watcher/map/" tabindex="-1">传播地图</a></li>
-          </ul>
-
-          <ul class="nav navbar-nav navbar-right">
-            <li class="navbar-form" role="search">
-              <form class="input-group" action="./" method="get" style="margin-bottom: 0px;">
-                <input name="word" type="text" class="form-control nav-item-dark" placeholder="关键字" tabindex="1">
-                <span class="input-group-btn">
-                  <button class="btn btn-default nav-item-dark" tabindex="-1">搜索</button>
-                </span>
-              </form>
-            </li>
-            <li role="about"><a href="/watcher/about" tabindex="-1">关于</a></li>
-          </ul>
-        </div><!-- /.navbar-collapse -->
+  <nav class="navbar navbar-default navbar-fixed-top navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="/" tabindex="-1">守望者</a>
       </div>
-    </nav>
 
-    {{if $smarty.const.ACTION_NAME != 'Index' && $smarty.const.ACTION_NAME != 'About'}}
-      <h3 style="display: inline;">#{{$smarty.session.word}}#</h3>
-    {{/if}}
+      <div class="collapse navbar-collapse">
+        <ul id="modelList" class="nav navbar-nav">
+          <li><a href="/watcher/country/" tabindex="-1">舆情趋势</a></li>
+          <li><a href="/watcher/user/" tabindex="-1">传播用户</a></li>
+          <li><a href="/watcher/map/" tabindex="-1">传播地图</a></li>
+        </ul>
 
-    {{block name=content}}{{/block}}
+        <ul class="nav navbar-nav navbar-right">
+          <li class="navbar-form" role="search">
+            <form class="input-group" action="./" method="get" style="margin-bottom: 0px;">
+              <input name="word" type="text" class="form-control nav-item-dark" placeholder="关键字" tabindex="1">
+              <span class="input-group-btn">
+                <button class="btn btn-default nav-item-dark" tabindex="-1">搜索</button>
+              </span>
+            </form>
+          </li>
+          <li role="about"><a href="/watcher/about" tabindex="-1">关于</a></li>
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div>
+  </nav>
 
+{{if $smarty.const.ACTION_NAME != 'Index' && $smarty.const.ACTION_NAME != 'About'}}
+  <h3 style="display: inline;">#{{$smarty.session.word}}#</h3>
+  <span class="label label-default">{{if isset($postNum)}}微博数:{{$postNum}}{{/if}}</span>
+  <span class="label label-default">{{if isset($userNum)}}参与用户:{{$userNum}}{{/if}}</span>
+{{/if}}
+
+{{if $result|default:true}}
+  {{block name=content}}{{/block}}
+{{else}}
+  <hr>
+  <div class="row text-center">
+      <h1>未找到话题数据</h1>
+  </div>
+{{/if}}
 
 </div><!-- /.container-->
 
@@ -63,7 +71,7 @@
 
 <script src="{{$base}}watcher/static/js/bootstrap.min.js"></script>
 <script type="text/javascript">
-{{if $smarty.const.ACTION_NAME == 'Index' || $smarty.const.ACTION_NAME == 'About'}}
+{{if $smarty.const.ACTION_NAME == 'Index' || $smarty.const.ACTION_NAME == 'About' || !$result|default:true}}
   $('a.navbar-brand').addClass('brand-breath');
 {{else}}
   $('a.navbar-brand').addClass('brand-red');

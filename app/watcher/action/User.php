@@ -19,8 +19,17 @@ class Action_User extends Action_Base
 
     public function run()
     {
+        $resource = parent::getResource();
+        $word = $resource['topic'];
+
+        $postNum = Service_Topic::getNumOfPost($word);
+        $userNum = Service_User::getNumOfTopic($word);
+
+
         $view = new Vera_View(true);
         $view->assign('title', '用户传播拓扑');
+        $view->assign('postNum', $postNum);//转发数
+        $view->assign('userNum', $userNum);//参与用户
         $view->display('extends:layout/main.tpl|user.tpl');
     }
 }

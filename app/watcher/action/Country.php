@@ -22,14 +22,35 @@ class Action_Country extends Action_Base
         $resource = parent::getResource();
         $word = $resource['topic'];
 
+        $list = self::_getDataAndLabel($word);
+        $postNum = Service_Topic::getNumOfPost($word);
+        $userNum = Service_User::getNumOfTopic($word);
+
+        $view = new Vera_View(true);
+        $view->assign('title', '舆情趋势');
+        $view->assign('result', $list['result']);//是否获取到了结果
+        $view->assign('postNum', $postNum);//转发数
+        $view->assign('userNum', $userNum);//参与用户
+        $view->assign('labels', implode("','", $list['labels']));//时间轴标签
+        $view->assign('data', json_encode($list['data'], JSON_UNESCAPED_UNICODE));//数据
+        $view->display('extends:layout/main.tpl|country.tpl');
+    }
+
+    private function _getDataAndLabel($word)
+    {
         $dataTpl = array(
             'name' => '',
             'type' => 'map',
+            'roam' => true,
             'mapValueCalculation' => 'average',
             'data' => array()
         );
 
         $posts = Service_Topic::getPostsOfTopic($word);
+        if (empty($posts)) {
+            return array('result' => false, 'data' => array(), 'labels' => array());
+        }
+
         $dataList = array();
         $labels = array(date('Y-m-d' ,strtotime($posts[0]['time'])));
         $data = array();
@@ -40,19 +61,35 @@ class Action_Country extends Action_Base
                 $day = $postDay;
                 $label = date('Y-m-d' ,strtotime($post['time']));
                 array_push($labels, $label);
-                $dataTpl['name'] = $label;
                 $dataTpl['data'] = $data;
                 array_push($dataList, $dataTpl);
                 $data = array();
             }
             array_push($data, array('name' => $post['location'], 'value' => $post['mood']));
         }
+        $dataTpl['data'] = $data;
+        array_push($dataList, $dataTpl);
 
-        $view = new Vera_View(true);
-        $view->assign('title', '全国情绪趋势');
-        $view->assign('labels', implode("','", $labels));//时间轴标签
-        $view->assign('data', json_encode($dataList, JSON_UNESCAPED_UNICODE));//数据
-        $view->display('extends:layout/main.tpl|country.tpl');
+        $i = 0;
+        foreach ($dataList as &$each) {
+            $temp = array();
+            foreach ($each['data'] as $value) {
+                if (!isset($temp[$value['name']])) {
+                    $temp[$value['name']] = $value['value'];
+                } else {
+                    $temp[$value['name']] = ($temp[$value['name']] + $value['value']) / 2;
+                }
+            }
+            $tempData = array();
+            foreach ($temp as $key => $value) {
+                array_push($tempData, array('name' => $key, 'value' => $value));
+            }
+            $each['name'] = $labels[$i];
+            $each['data'] = $tempData;
+            $i++;
+        }
+
+        return array('result' => true, 'data' => $dataList, 'labels' => $labels);
     }
 }
 

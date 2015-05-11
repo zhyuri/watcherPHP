@@ -4,7 +4,7 @@
     $("ul.navbar-nav li[role!='about']").html('');{{*清除导航栏中原本的搜索框*}}
 </script>
 <div class="row text-center head-title">
-    <h1 style="display: inline;">守望者舆情监控</h1><small style="color: #83f6a5;">v0.1</small>
+    <h1 style="display: inline;">守望者舆情监控</h1><small style="color: #83f6a5;">develop</small>
 </div>
 
 {{* 搜索框 *}}
@@ -55,6 +55,7 @@ require(
     ],
     function(ec) {
         var option = {
+            backgroundColor : '#131313',
             title: {
                 show: false
             },

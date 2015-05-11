@@ -27,5 +27,11 @@ class Service_User
         }
         return Data_Location::getLocFromId($info['location']);
     }
+
+    public static function getNumOfTopic($topic)
+    {
+        $info = Data_Topic::get($topic);
+        return Data_Post::getUserCountByTopic($info['id']);
+    }
 }
 ?>
