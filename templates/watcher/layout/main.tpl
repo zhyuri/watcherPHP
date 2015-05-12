@@ -71,12 +71,12 @@
 
 <script src="{{$base}}watcher/static/js/bootstrap.min.js"></script>
 <script type="text/javascript">
+  $('#modelList a[href="/watcher/'+ document.location.pathname.split('/')[2] +'/"]').css('color', '#fff');
 {{if $smarty.const.ACTION_NAME == 'Index' || $smarty.const.ACTION_NAME == 'About' || !$result|default:true}}
   $('a.navbar-brand').addClass('brand-breath');
 {{else}}
   $('a.navbar-brand').addClass('brand-red');
   $('footer a').addClass('brand-red');
-  $('#modelList a[href="/watcher/'+ document.location.pathname.split('/')[2] +'/"]').css('color', '#fff');
 {{/if}}
 </script>
 </body>

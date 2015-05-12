@@ -19,10 +19,16 @@ class Data_Location
 {
     function __construct() {}
 
-    public static function getLocFromId($id)
+    public static function get()
     {
         $db = Vera_Database::getInstance();
-        $result = $db->select('location', '*', array('id' => $id));
+        return $db->select('location', '*');
+    }
+
+    public static function getLocFromId($locID)
+    {
+        $db = Vera_Database::getInstance();
+        $result = $db->select('location', '*', array('id' => $locID));
         return isset($result[0]) ? $result[0] : array();
     }
 }
