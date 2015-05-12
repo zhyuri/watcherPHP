@@ -5,7 +5,6 @@
       <div class="row" style="margin-top: 20px;">
           <form class="form-inline">
             <div class="form-group">
-              <label for="exampleInputName2"></label>
               <input id="newTopic" type="text" class="form-control nav-item-dark" value="{{if isset($smarty.get.word)}}{{$smarty.get.word}}{{/if}}">
             </div>
             <button id="submitTopic" type="button" class="btn btn-default nav-item-dark" data-loading-text="提交中">提交收录</button>
