@@ -54,6 +54,17 @@ class Action_User extends Action_Base
         $resource = parent::getResource();
         $word = $resource['topic'];
 
+        $view = new Vera_View();
+        $template = 'user.tpl';
+        $cacheId = md5($word);//中文不能作为cache_id
+        $isCached = $view->isCached($template, $cacheId);
+        Vera_Log::addNotice('isCached', intval($isCached));
+        if ($isCached) {
+            $view->display($template, $cacheId);
+            return true;
+        }
+        $result = false;
+
         $nodes = array();
         $users = Service_Topic::getUsersWithRepost($word);
         $sum = Service_Topic::getNumOfPost($word);
@@ -61,18 +72,24 @@ class Action_User extends Action_Base
             $node = self::_buildNode($user, $sum);
             if (!empty($node)) array_push($nodes, $node);
         }
+        $result = !empty($nodes);
 
-        $links = self::_buildLink($nodes, $sum);
-
-        $userNum = Service_User::getNumOfTopic($word);
-
-        $view = new Vera_View(true);
         $view->assign('title', '用户传播拓扑');
-        $view->assign('result', !empty($nodes));//是否获取到了结果
-        $view->assign('nodes', $nodes);//用户
-        $view->assign('links', $links);//转发关系
-        $view->assign('userNum', $userNum);//参与用户数
-        $view->display('extends:layout/main.tpl|user.tpl');
+        $view->assign('result', $result);//是否获取到了结果
+
+        if ($result) {
+            $links = self::_buildLink($nodes, $sum);
+            $userNum = Service_User::getNumOfTopic($word);
+
+            $view->assign('nodes', $nodes);//用户
+            $view->assign('links', $links);//转发关系
+            $view->assign('userNum', $userNum);//参与用户数
+            $view->setCacheLifetime(86400);
+        } else {
+            $this->caching = Smarty::CACHING_OFF;
+        }
+        $view->display($template, $cacheId);
+        return true;
     }
 
     private static function _buildNode($user, $sum)

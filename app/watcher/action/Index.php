@@ -22,10 +22,17 @@ class Action_Index extends Action_Base
 
     public function run()
     {
-        $view = new Vera_View(true);
-        $hotTopic = array('毕业设计','海韵','凤凰树','毕业季','智能科学与技术','厦门大学','海韵','凤凰树','毕业季','智能科学与技术');
-        $view->assign('hotTopic', $hotTopic);
-        $view->display('extends:layout/main.tpl|index.tpl');
+        $view = new Vera_View();
+        $template = 'extends:layout/main.tpl|index.tpl';
+
+        if (!$view->isCached($template)) {
+            $hotTopic = Service_Topic::getHotTopic();
+            $view->assign('hotTopic', $hotTopic);
+            $view->setCacheLifetime(3600);//首页过期时间一小时
+        } else {
+            Vera_Log::addNotice('isCached', 1);
+        }
+        $view->display($template);
     }
 }
 

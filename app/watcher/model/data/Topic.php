@@ -22,8 +22,14 @@ class Data_Topic
     public static function get($topic)
     {
         $db = Vera_Database::getInstance();
-        $result = $db->select('topic', '*', array('content' => $topic));
+        $result = $db->select('topic', '*', array('content' => $topic, 'is_collect' => 1));
         return isset($result[0]) ? $result[0] : array();
+    }
+
+    public static function add($topic)
+    {
+        $db = Vera_Database::getInstance();
+        return $db->insert('topic', array('content' => $topic));
     }
 }
 ?>

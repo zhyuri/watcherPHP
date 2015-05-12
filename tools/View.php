@@ -19,7 +19,7 @@ require_once(SMARTY_DIR . 'Smarty.class.php');
 class Vera_View extends Smarty
 {
 
-    function __construct($debug)
+    function __construct($debug = false)
     {
         parent::__construct();
 
@@ -35,7 +35,6 @@ class Vera_View extends Smarty
 
         if ($debug) {//开启调试模式
             $this->caching = Smarty::CACHING_OFF;//关闭缓存
-            // $this->debugging = true;//弹窗
             Vera_Log::addNotice('isDebug','1');
         }
         else {

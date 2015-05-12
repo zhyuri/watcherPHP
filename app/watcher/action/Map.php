@@ -21,26 +21,39 @@ class Action_Map extends Action_Base
     {
         $resource = parent::getResource();
         $word = $resource['topic'];
+
+        $view = new Vera_View();
+        $template = 'map.tpl';
+        $cacheId = md5($word);//中文不能作为cache_id
+        $isCached = $view->isCached($template, $cacheId);
+        Vera_Log::addNotice('isCached', intval($isCached));
+        if ($isCached) {
+            $view->display($template, $cacheId);
+            return true;
+        }
         $result = false;
 
-        $coordData = Service_Location::getGeoCoord();
-        $lineData = Service_Location::getRepostLocByTopic($word);
-        $pointData = self::_buildPoint($lineData);
-
         $postNum = Service_Topic::getNumOfPost($word);
-        if ($postNum > 0) {
-            $result = true;
-        }
+        $result = $postNum > 0;
 
-        $view = new Vera_View(true);
         $view->assign('title', '全国传播地图');
         $view->assign('result', $result);//是否获取到了结果
-        $view->assign('postNum', $postNum);//转发数
-        $view->assign('coordData', json_encode($coordData, JSON_UNESCAPED_UNICODE));//全部的Location列表
-        $view->assign('pointData', json_encode($pointData, JSON_UNESCAPED_UNICODE));//标点数据
-        $view->assign('lineData', json_encode($lineData, JSON_UNESCAPED_UNICODE));//标线数据
 
-        $view->display('extends:layout/main.tpl|map.tpl');
+        if ($result) {
+            $coordData = Service_Location::getGeoCoord();
+            $lineData = Service_Location::getRepostLocByTopic($word);
+            $pointData = self::_buildPoint($lineData);
+
+            $view->assign('postNum', $postNum);//转发数
+            $view->assign('coordData', $coordData);//全部的Location列表
+            $view->assign('lineData', $lineData);//标线数据
+            $view->assign('pointData', $pointData);//标点数据
+            $view->setCacheLifetime(86400);
+        } else {
+            $this->caching = Smarty::CACHING_OFF;
+        }
+        $view->display($template, $cacheId);
+        return true;
     }
 
     private static function _buildPoint($line)

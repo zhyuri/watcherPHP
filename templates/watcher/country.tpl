@@ -1,3 +1,4 @@
+{{extends file='layout/main.tpl'}}
 {{* 全国情感趋势图 *}}
 {{block name=content}}
 <div class="row">

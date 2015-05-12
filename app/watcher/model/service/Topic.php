@@ -21,7 +21,7 @@ class Service_Topic
 
     public static function getHotTopic()
     {
-        return array();
+        return array('毕业设计','海韵','凤凰树','毕业季','智能科学与技术','厦门大学','海韵','凤凰树','毕业季','智能科学与技术');
     }
 
     public static function getUsersWithRepost($topic)

@@ -1,3 +1,4 @@
+{{extends file='layout/main.tpl'}}
 {{* 全国转发情况 *}}
 {{block name=content}}
 <div class="row">
@@ -64,7 +65,7 @@ require(
                 roam: true,
                 scaleLimit: {//放缩界限
                     max: 10,
-                    min: 0.9
+                    min: 1
                 },
                 itemStyle: {
                     normal: {
@@ -77,16 +78,16 @@ require(
                 },
                 data: [{}],
                 markPoint: {
-                    clickable: false,
+                    clickable: true,
                     symbol: 'circle',
-                    symbolSize: 0.5,
+                    symbolSize: 1.5,
                     large: true,
                     effect: {
                         show: true,
                         type: 'scale',
                         loop: true,
-                        period: 15,//运动周期，无单位，值越大越慢，默认为15
-                        scaleSize: 2,//type为scale时有效
+                        period: 5,//运动周期，无单位，值越大越慢，默认为15
+                        scaleSize: 5,//type为scale时有效
                         bounceDistance: 10,//跳动距离，单位为px，type为bounce时有效
                         color: null,
                         shadowColor: null,
@@ -134,9 +135,9 @@ require(
             }]
         };
 
-        var geoCoord = {{$coordData|default:"[]"}};
+        var geoCoord = {{$coordData|default:array()|@json_encode}};
 
-        var points = {{$pointData|default:"[]"}};
+        var points = {{$pointData|default:array()|@json_encode}};
         option.series[0].markPoint.data = points.filter(function(point){
             return point.value > 0;
         }).map(function(point){
@@ -145,7 +146,7 @@ require(
             }
         });
 
-        var lines = {{$lineData|default:"[]"}};
+        var lines = {{$lineData|default:array()|@json_encode}};
         option.series[0].markLine.data = lines.filter(function(line){
             return line[0].value > 10;
         }).map(function(line){

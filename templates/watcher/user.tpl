@@ -1,3 +1,4 @@
+{{extends file='layout/main.tpl'}}
 {{* 用户传播图 *}}
 {{block name=content}}
 <div class="row">

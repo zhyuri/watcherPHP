@@ -19,8 +19,8 @@
         <a class="navbar-brand" href="/" tabindex="-1">守望者</a>
       </div>
 
-      <div class="collapse navbar-collapse">
-        <ul id="modelList" class="nav navbar-nav">
+      <div id="modelList" class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
           <li><a href="/watcher/country/" tabindex="-1">舆情趋势</a></li>
           <li><a href="/watcher/user/" tabindex="-1">传播用户</a></li>
           <li><a href="/watcher/map/" tabindex="-1">传播地图</a></li>
@@ -35,7 +35,7 @@
               </span>
             </form>
           </li>
-          <li role="about"><a href="/watcher/about" tabindex="-1">关于</a></li>
+          <li role="about"><a href="/watcher/about/" tabindex="-1">关于</a></li>
         </ul>
       </div><!-- /.navbar-collapse -->
     </div>
@@ -50,10 +50,9 @@
 {{if $result|default:true}}
   {{block name=content}}{{/block}}
 {{else}}
-  <hr>
-  <div class="row text-center">
-      <h1>未找到话题数据</h1>
-  </div>
+
+{{* 404页面 *}}
+  {{include file='404.tpl'}}
 {{/if}}
 
 </div><!-- /.container-->

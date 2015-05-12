@@ -1,3 +1,4 @@
+{{extends file='layout/main.tpl'}}
 {{* 首页 *}}
 {{block name=content}}
 <script type="text/javascript">
@@ -148,8 +149,7 @@ require(
                 option.series[0].data = ret;
                 chart.setOption(option);
             }
-        })
-
+        });
     });
 </script>
 {{/block}}
