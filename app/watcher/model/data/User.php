@@ -12,9 +12,6 @@
 *
 **/
 
-/**
-* x
-*/
 class Data_User
 {
     function __construct() {}

@@ -12,9 +12,6 @@
 *
 **/
 
-/**
-* x
-*/
 class Data_Location
 {
     function __construct() {}

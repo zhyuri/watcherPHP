@@ -12,9 +12,6 @@
 *
 **/
 
-/**
-*  c
-*/
 class Service_Mood
 {
     function __construct() {}

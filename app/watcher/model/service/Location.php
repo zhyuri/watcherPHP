@@ -12,9 +12,6 @@
 *
 **/
 
-/**
-* x
-*/
 class Service_Location
 {
     function __construct() {}

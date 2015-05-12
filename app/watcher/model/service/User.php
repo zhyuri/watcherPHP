@@ -12,9 +12,6 @@
 *
 **/
 
-/**
-* x
-*/
 class Service_User
 {
     function __construct() {}

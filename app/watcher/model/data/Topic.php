@@ -12,9 +12,6 @@
 *
 **/
 
-/**
-* c
-*/
 class Data_Topic
 {
     function __construct() {}
@@ -30,6 +27,12 @@ class Data_Topic
     {
         $db = Vera_Database::getInstance();
         return $db->insert('topic', array('content' => $topic));
+    }
+
+    public static function getAll()
+    {
+        $db = Vera_Database::getInstance();
+        return $db->select('topic', '*');
     }
 }
 ?>

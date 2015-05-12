@@ -12,16 +12,20 @@
 *
 **/
 
-/**
-* x
-*/
 class Service_Topic
 {
     function __construct() {}
 
     public static function getHotTopic()
     {
-        return array('毕业设计','海韵','凤凰树','毕业季','智能科学与技术','厦门大学','海韵','凤凰树','毕业季','智能科学与技术');
+        $topics = Data_Topic::getAll();
+        $ret = array();
+        foreach ($topics as $topic) {
+            $ret[$topic['content']] = Data_Post::getCountByTopic($topic['id']);
+        }
+        asort($ret, SORT_NUMERIC);
+        $ret = array_reverse($ret);
+        return array_keys($ret);
     }
 
     public static function getUsersWithRepost($topic)

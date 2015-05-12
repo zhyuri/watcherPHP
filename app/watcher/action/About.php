@@ -12,9 +12,6 @@
 *
 **/
 
-/**
-* x
-*/
 class Action_About extends Action_Base
 {
     function __construct() {}

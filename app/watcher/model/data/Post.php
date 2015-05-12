@@ -12,9 +12,6 @@
 *
 **/
 
-/**
-* x
-*/
 class Data_Post
 {
     function __construct() {}

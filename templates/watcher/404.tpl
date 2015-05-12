@@ -8,7 +8,7 @@
               <label for="exampleInputName2"></label>
               <input id="newTopic" type="text" class="form-control nav-item-dark" value="{{if isset($smarty.get.word)}}{{$smarty.get.word}}{{/if}}">
             </div>
-            <button id="submitTopic" type="button" class="btn btn-default nav-item-dark">提交收录</button>
+            <button id="submitTopic" type="button" class="btn btn-default nav-item-dark" data-loading-text="提交中">提交收录</button>
           </form>
           <p id="newTopicInfo" class="brand-breath" style="margin-top: 5px;">帮助我们收录更多的热门话题</p>
       </div>
@@ -22,6 +22,7 @@ $('button#submitTopic').on('click', function(){
         alert('请输入话题');
         return false;
     };
+    $(this).button('loading');
     $.ajax({
         type: 'GET',
         url: '/watcher/api/topic',
@@ -30,6 +31,7 @@ $('button#submitTopic').on('click', function(){
             word: topic
         },
         success: function(data){
+            $(this).button('reset')
             var text = '感谢您的提交,系统将会选择合适时机收录。';
             if (data.errno != 0) {
                 text = data.errmsg;
@@ -37,7 +39,7 @@ $('button#submitTopic').on('click', function(){
                 $('input#newTopic').val('');
             }
             $('p#newTopicInfo').removeClass('brand-breath').addClass('brand-red').text(text);
-        }
+        }.bind(this)
     });
 })
 </script>
